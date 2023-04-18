@@ -1,9 +1,13 @@
 pipeline {
+  environment {
+    registry = 'srecchia/flask-app'
+    registryCredentials = 'docker'
+    cluster_name = 'skillstorm'
+  }
   agent {
     node {
       label 'docker'
     }
-
   }
   stages {
     stage('Git') {
@@ -11,24 +15,23 @@ pipeline {
         git(url: 'https://github.com/srecchia26/flask', branch: 'main')
       }
     }
-
-    stage('Build') {
-      steps {
-        sh 'docker build -t srecchia26/flask-app .'
-      }
+  
+stage('Build Stage') {
+    steps {
+        script {
+            dockerImage = docker.build(registry)
+        }
+      } 
     }
 
-    stage('Docker Login') {
-      steps {
-        sh 'docker login -u srecchia26 -p dckr_pat_ID3ui64h4uOcivDetZO_M8Qj5K0'
-      }
+stage('Deploy Stage') {
+    steps {
+        script {
+            docker.withRegistry('', registryCredentials) {
+                  dockerImage.push()
+            } 
+          }
+        }
     }
-
-    stage('Docker Push') {
-      steps {
-        sh 'docker push srecchia26/flask-app'
-      }
-    }
-
   }
 }
