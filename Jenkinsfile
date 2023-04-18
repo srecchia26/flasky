@@ -29,9 +29,9 @@ stage('Deploy Stage') {
         script {
             docker.withRegistry('', registryCredentials) {
                   dockerImage.push()
-            } 
-          }
-        }
-      }
-   }
+             } 
+           }
+         }
+       }
+     }
 }
