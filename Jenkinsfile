@@ -32,6 +32,6 @@ stage('Deploy Stage') {
             } 
           }
         }
+      }
     }
-  }
 }
