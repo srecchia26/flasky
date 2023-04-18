@@ -27,11 +27,11 @@ stage('Build Stage') {
 stage('Deploy Stage') {
     steps {
         script {
-            docker.withRegistry('', registryCredentials) {
-                  dockerImage.push()
-            } 
+           docker.withRegistry('', registryCredentials) {
+                dockerImage.push()
+            }
           }
         }
+      }
     }
-  }
 }
