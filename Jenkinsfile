@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = 'srecchia/flask-app'
+    registry = 'srecchia26/flask-app'
     registryCredentials = 'docker'
     cluster_name = 'skillstorm'
   }
